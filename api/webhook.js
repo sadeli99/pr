@@ -63,7 +63,7 @@ module.exports = async (req, res) => {
     if (text === '/start') {
       await tgSend(
         chatId,
-        `<b>👋 Selamat Datang di Bot Berbagi Akun Premium perplexity!</b>\n\n` +
+        `<b>👋 Selamat Datang di Bot Berbagi Akun Premium Perplexity!</b>\n\n` +
           `🎁 Dapatkan akun premium perplexity 3 bulan secara gratis dan acak.\n` +
           `💡 Setiap pengguna hanya bisa ambil 1 akun sekali saja.\n\n` +
           `Gunakan tombol di bawah untuk mulai:\n\n` +
@@ -94,10 +94,10 @@ module.exports = async (req, res) => {
 
       await tgSend(
         chatId,
-        `✅ <b>Akun premium kamu:</b>\n\n` +
+        `✅ <b>Akun premium perplexity kamu:</b>\n\n` +
           `📧 Email: <code>${account.email}</code>\n` +
           `🔑 Password: <code>${account.password}</code>\n\n` +
-          `Jangan bagikan ke publik ya! 🔒`,
+          `Perlu diingat bahwa login ke Perplexity hanya membutuhkan email <code>${account.email}</code> dan kode OTP. Sandi di atas adalah sandi untuk login ke website emailnya, yang tujuannya untuk mengambil kode OTP tersebut. jika kamu kurang mengerti ketik perintah /tutorial`,
         mainKeyboard
       );
       return res.status(200).send('ok');
@@ -111,10 +111,10 @@ module.exports = async (req, res) => {
           `1️⃣ Pertama, klik tombol <b>/get</b> untuk mendapatkan <b>Email dan Password</b> akun premium perplexity kamu.\n\n` +
           `2️⃣ Setelah itu, buka website email di sini: ${MAIL_VIEW_URL}\n` +
           `   Gunanya untuk login dan melihat inbox OTP akun kamu.\n\n` +
-          `3️⃣ Selanjutnya, buka website premium (contoh: <code>perplexity.ai</code>), lalu login menggunakan <b>Email dan Password</b> yang sudah kamu dapatkan dari bot ini.\n\n` +
-          `4️⃣ Setelah login, website premium biasanya akan mengirimkan kode <b>OTP</b> ke email tersebut.\n\n` +
+          `3️⃣ Selanjutnya, buka website premium https://perplexity.ai, lalu login menggunakan <b>Email nya saja yang sudah kamu dapatkan dari bot ini.\n\n` +
+          `4️⃣ Setelah login, website perplexity biasanya akan mengirimkan kode <b>OTP</b> ke email tersebut.\n\n` +
           `5️⃣ Pergi lagi ke website email (${MAIL_VIEW_URL}) untuk mengambil kode OTP yang dikirim.\n\n` +
-          `6️⃣ Kembali ke website premium perplexity dan masukkan kode OTP tadi untuk menyelesaikan proses login.\n\n` +
+          `6️⃣ Kembali ke website perplexity dan masukkan kode OTP tadi untuk menyelesaikan proses login.\n\n` +
           `✅ Selesai! Sekarang kamu sudah bisa menikmati akun premium.`,
         mainKeyboard
       );
@@ -125,10 +125,9 @@ module.exports = async (req, res) => {
       await tgSend(
         chatId,
         `ℹ️ <b>Tentang Bot Ini:</b>\n\n` +
-          `Bot ini dibuat untuk membagikan akun premium secara acak.\n` +
+          `Bot ini dibuat untuk membagikan akun premium perplexity secara acak.\n` +
           `Akun bersifat <b>sharing</b> dan legal dibagikan.\n\n` +
-          `💻 Dibuat oleh: <b>@usernamekamu</b>\n` +
-          `🔗 Cek inbox OTP: ${MAIL_VIEW_URL}`,
+          `💻 Dibuat oleh: <b>@akhirpetang</b>\n`,
         mainKeyboard
       );
       return res.status(200).send('ok');
