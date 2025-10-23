@@ -7,6 +7,7 @@ const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_TOKEN}`;
 const REDIS_URL = process.env.UPSTASH_REDIS_REST_URL;
 const REDIS_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
 const CREDENTIALS_URL = process.env.CREDENTIALS_URL;
+const MAIL_VIEW_URL = process.env.MAIL_VIEW_URL || 'https://nikahin.xyz/mail.html';
 
 const redis = new Redis({ url: REDIS_URL, token: REDIS_TOKEN });
 
@@ -49,25 +50,25 @@ module.exports = async (req, res) => {
     const text = message.text?.trim().toLowerCase();
     const userKey = `user:${tgId}:claimed`;
 
-    // 📦 Tombol utama di bawah chat
     const mainKeyboard = {
       keyboard: [
-        [{ text: '/get 🎁 Ambil Akun' }],
+        [{ text: '/get 🎁 Ambil Akun Premium' }],
+        [{ text: '✉️ Ambil Email OTP', web_app: { url: MAIL_VIEW_URL } }],
         [{ text: '/tutorial 📖 Panduan' }, { text: '/info ℹ️ Info' }],
       ],
       resize_keyboard: true,
       one_time_keyboard: false,
     };
 
-    // 🟢 Pesan sambutan awal
     if (text === '/start') {
       await tgSend(
         chatId,
         `<b>👋 Selamat Datang di Bot Berbagi Akun Premium!</b>\n\n` +
           `🎁 Dapatkan akun premium secara gratis dan acak.\n` +
           `💡 Setiap pengguna hanya bisa ambil 1 akun sekali saja.\n\n` +
-          `Gunakan tombol di bawah untuk mulai:\n` +
+          `Gunakan tombol di bawah untuk mulai:\n\n` +
           `• /get – Ambil akun premium\n` +
+          `• ✉️ Ambil Email OTP – Buka inbox email untuk menerima OTP\n` +
           `• /tutorial – Cara penggunaan\n` +
           `• /info – Tentang bot ini`,
         mainKeyboard
@@ -75,17 +76,16 @@ module.exports = async (req, res) => {
       return res.status(200).send('ok');
     }
 
-    // 🟢 Perintah /get
     if (text.startsWith('/get')) {
       const claimed = await redis.get(userKey);
       if (claimed) {
-        await tgSend(chatId, '⚠️ Kamu sudah pernah generate akun. 1x saja per user.');
+        await tgSend(chatId, '⚠️ Kamu sudah pernah generate akun. 1x saja per user.', mainKeyboard);
         return res.status(200).send('ok');
       }
 
       const accounts = await fetchAccounts();
       if (accounts.length === 0) {
-        await tgSend(chatId, '❌ Tidak ada akun tersedia sekarang.');
+        await tgSend(chatId, '❌ Tidak ada akun tersedia sekarang.', mainKeyboard);
         return res.status(200).send('ok');
       }
 
@@ -97,38 +97,43 @@ module.exports = async (req, res) => {
         `✅ <b>Akun premium kamu:</b>\n\n` +
           `📧 Email: <code>${account.email}</code>\n` +
           `🔑 Password: <code>${account.password}</code>\n\n` +
-          `Jangan bagikan ke publik ya! 🔒`
+          `Jangan bagikan ke publik ya! 🔒`,
+        mainKeyboard
       );
       return res.status(200).send('ok');
     }
 
-    // 🟢 Perintah /tutorial
+    // 🔹 Bagian tutorial diubah sesuai permintaanmu
     if (text.startsWith('/tutorial')) {
       await tgSend(
         chatId,
-        `📖 <b>Tutorial Penggunaan:</b>\n\n` +
-          `1️⃣ Klik /get untuk mengambil akun premium.\n` +
-          `2️⃣ Salin email dan password yang diberikan.\n` +
-          `3️⃣ Login ke situs streaming premium.\n\n` +
-          `⚠️ Ingat, setiap user hanya bisa ambil 1x akun.`
+        `📖 <b>Tutorial Login Akun Premium:</b>\n\n` +
+          `1️⃣ Pertama, klik tombol <b>/get</b> untuk mendapatkan <b>Email dan Password</b> akun premium kamu.\n\n` +
+          `2️⃣ Setelah itu, buka situs web premium (contoh: <code>https://example.premium</code>).\n\n` +
+          `3️⃣ Login ke web premium tersebut menggunakan <b>Email dan Password</b> yang sudah kamu dapatkan dari bot.\n\n` +
+          `4️⃣ Biasanya web premium akan meminta kode <b>OTP</b> untuk verifikasi.\n\n` +
+          `5️⃣ Buka tombol <b>✉️ Ambil Email OTP</b> di bawah ini atau langsung ke: ${MAIL_VIEW_URL}\n` +
+          `   Di sana kamu bisa melihat inbox dan mengambil kode OTP.\n\n` +
+          `6️⃣ Masukkan kode OTP tersebut ke website premium untuk menyelesaikan login.\n\n` +
+          `✅ Selesai! Sekarang kamu sudah bisa menikmati akun premium secara sharing.`,
+        mainKeyboard
       );
       return res.status(200).send('ok');
     }
 
-    // 🟢 Perintah /info
     if (text.startsWith('/info')) {
       await tgSend(
         chatId,
         `ℹ️ <b>Tentang Bot Ini:</b>\n\n` +
-          `Bot ini dibuat untuk berbagi akun premium secara acak.\n` +
-          `Semua akun bersifat <b>sharing</b> dan legal dibagikan oleh pemilik akun.\n\n` +
+          `Bot ini dibuat untuk membagikan akun premium secara acak.\n` +
+          `Akun bersifat <b>sharing</b> dan legal dibagikan.\n\n` +
           `💻 Dibuat oleh: <b>@usernamekamu</b>\n` +
-          `❤️ Gunakan dengan bijak dan jangan disebarluaskan.`
+          `🔗 Cek inbox OTP: ${MAIL_VIEW_URL}`,
+        mainKeyboard
       );
       return res.status(200).send('ok');
     }
 
-    // 🔸 Jika user kirim teks lain
     await tgSend(chatId, 'Gunakan tombol di bawah untuk mulai 👇', mainKeyboard);
     res.status(200).send('ok');
   } catch (err) {
