@@ -107,15 +107,15 @@ module.exports = async (req, res) => {
 if (text.startsWith('/tutorial')) {
   await tgSend(
     chatId,
-    `📖 <b>Tutorial Menggunakan Akun Premium:</b>\n\n` +
-      `1️⃣ Pertama, klik tombol <b>/get</b> untuk mendapatkan <b>Email dan Password</b> akun premium kamu.\n\n` +
+    `📖 <b>Tutorial Menggunakan Akun Premium  Perplexity:</b>\n\n` +
+      `1️⃣ Pertama, klik tombol <b>/get</b> untuk mendapatkan <b>Email dan Password</b> akun premium  Perplexity kamu.\n\n` +
       `2️⃣ Setelah itu, buka website email di sini: ${MAIL_VIEW_URL}\n` +
       `   Login ke email untuk melihat inbox dan menerima kode OTP.\n\n` +
       `3️⃣ Selanjutnya, buka website premium di <code>https://www.perplexity.ai/</code> lalu login menggunakan <b>email</b> yang sudah kamu dapatkan dari bot.\n\n` +
-      `4️⃣ Website premium biasanya akan mengirimkan kode <b>OTP</b> ke email tersebut.\n\n` +
+      `4️⃣ Website Perplexity biasanya akan mengirimkan kode <b>OTP</b> ke email tersebut.\n\n` +
       `5️⃣ Kembali ke website email (${MAIL_VIEW_URL}) untuk mengambil kode OTP yang dikirim.\n\n` +
-      `6️⃣ Masukkan kode OTP tadi ke website premium untuk menyelesaikan proses login.\n\n` +
-      `✅ Selesai! Sekarang kamu sudah bisa menikmati akun premium secara sharing.`
+      `6️⃣ Masukkan kode OTP tadi ke website Perplexity untuk menyelesaikan proses login.\n\n` +
+      `✅ Selesai! Sekarang kamu sudah bisa menikmati akun premium Perplexity secara sharing.`
   );
   return res.status(200).send('ok');
 }
