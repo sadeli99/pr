@@ -107,14 +107,14 @@ module.exports = async (req, res) => {
     if (text.startsWith('/tutorial')) {
       await tgSend(
         chatId,
-        `📖 <b>Tutorial Login Akun Premium:</b>\n\n` +
+        `📖 <b>Tutorial Menggunakan Akun Premium:</b>\n\n` +
           `1️⃣ Pertama, klik tombol <b>/get</b> untuk mendapatkan <b>Email dan Password</b> akun premium kamu.\n\n` +
-          `2️⃣ Setelah itu, buka situs web premium (contoh: <code>https://example.premium</code>).\n\n` +
-          `3️⃣ Login ke web premium tersebut menggunakan <b>Email dan Password</b> yang sudah kamu dapatkan dari bot.\n\n` +
-          `4️⃣ Biasanya web premium akan meminta kode <b>OTP</b> untuk verifikasi.\n\n` +
-          `5️⃣ Buka tombol <b>✉️ Ambil Email OTP</b> di bawah ini atau langsung ke: ${MAIL_VIEW_URL}\n` +
-          `   Di sana kamu bisa melihat inbox dan mengambil kode OTP.\n\n` +
-          `6️⃣ Masukkan kode OTP tersebut ke website premium untuk menyelesaikan login.\n\n` +
+          `2️⃣ Setelah itu, buka website email di sini: ${MAIL_VIEW_URL}\n` +
+          `   Gunanya untuk login dan melihat inbox OTP akun kamu.\n\n` +
+          `3️⃣ Selanjutnya, buka website premium (contoh: <code>https://example.premium</code>), lalu login menggunakan <b>Email dan Password</b> yang sudah kamu dapatkan dari bot.\n\n` +
+          `4️⃣ Setelah login, website premium biasanya akan mengirimkan kode <b>OTP</b> ke email tersebut.\n\n` +
+          `5️⃣ Pergi lagi ke website email (${MAIL_VIEW_URL}) untuk mengambil kode OTP yang dikirim.\n\n` +
+          `6️⃣ Kembali ke website premium dan masukkan kode OTP tadi untuk menyelesaikan proses login.\n\n` +
           `✅ Selesai! Sekarang kamu sudah bisa menikmati akun premium secara sharing.`,
         mainKeyboard
       );
