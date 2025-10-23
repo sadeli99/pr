@@ -103,23 +103,23 @@ module.exports = async (req, res) => {
       return res.status(200).send('ok');
     }
 
-    // 🔹 Bagian tutorial diubah sesuai permintaanmu
-    if (text.startsWith('/tutorial')) {
-      await tgSend(
-        chatId,
-        `📖 <b>Tutorial Menggunakan Akun Premium perplexity:</b>\n\n` +
-          `1️⃣ Pertama, klik tombol <b>/get</b> untuk mendapatkan <b>Email dan Password</b> akun premium perplexity kamu.\n\n` +
-          `2️⃣ Setelah itu, buka website email di sini: ${MAIL_VIEW_URL}\n` +
-          `   Gunanya untuk login dan melihat inbox OTP akun kamu.\n\n` +
-          `3️⃣ Selanjutnya, buka website premium https://perplexity.ai, lalu login menggunakan <b>Email nya saja yang sudah kamu dapatkan dari bot ini.\n\n` +
-          `4️⃣ Setelah login, website perplexity biasanya akan mengirimkan kode <b>OTP</b> ke email tersebut.\n\n` +
-          `5️⃣ Pergi lagi ke website email (${MAIL_VIEW_URL}) untuk mengambil kode OTP yang dikirim.\n\n` +
-          `6️⃣ Kembali ke website perplexity dan masukkan kode OTP tadi untuk menyelesaikan proses login.\n\n` +
-          `✅ Selesai! Sekarang kamu sudah bisa menikmati akun premium.`,
-        mainKeyboard
-      );
-      return res.status(200).send('ok');
-    }
+    // ── Blok /tutorial ──
+if (text.startsWith('/tutorial')) {
+  await tgSend(
+    chatId,
+    `📖 <b>Tutorial Menggunakan Akun Premium:</b>\n\n` +
+      `1️⃣ Pertama, klik tombol <b>/get</b> untuk mendapatkan <b>Email dan Password</b> akun premium kamu.\n\n` +
+      `2️⃣ Setelah itu, buka website email di sini: ${MAIL_VIEW_URL}\n` +
+      `   Login ke email untuk melihat inbox dan menerima kode OTP.\n\n` +
+      `3️⃣ Selanjutnya, buka website premium di <code>https://www.perplexity.ai/</code> lalu login menggunakan <b>email</b> yang sudah kamu dapatkan dari bot.\n\n` +
+      `4️⃣ Website premium biasanya akan mengirimkan kode <b>OTP</b> ke email tersebut.\n\n` +
+      `5️⃣ Kembali ke website email (${MAIL_VIEW_URL}) untuk mengambil kode OTP yang dikirim.\n\n` +
+      `6️⃣ Masukkan kode OTP tadi ke website premium untuk menyelesaikan proses login.\n\n` +
+      `✅ Selesai! Sekarang kamu sudah bisa menikmati akun premium secara sharing.`
+  );
+  return res.status(200).send('ok');
+}
+
 
     if (text.startsWith('/info')) {
       await tgSend(
