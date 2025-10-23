@@ -1,0 +1,10 @@
+{
+  "name": "premium-bot",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "main": "api/webhook.js",
+  "dependencies": {
+    "@upstash/redis": "^1.27.0",
+    "node-fetch": "^2.6.9"
+  }
+}
